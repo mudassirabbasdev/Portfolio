@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0d14" />
+    <title>Mudassir Abbas | MERN Stack Developer Portfolio</title>
+    <meta name="description" content="Mudassir Abbas, MERN stack developer building fast, responsive web applications with React." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mudassir Abbas | MERN Stack Developer" />
+    <meta property="og:description" content="Fast, responsive, user-friendly web applications built with React and the MERN stack." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Fonts are self-hosted (no third-party request blocks rendering). Preload only the one used above the fold. -->
+    <link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- The hero portrait is the largest image on first paint. -->
+    <link rel="preload" href="/mudassir.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- Paint the page colour immediately so there is never a white flash before the stylesheet arrives. -->
+    <style>
+      html,
+      body {
+        background: #0a0d14;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>This portfolio needs JavaScript. You can reach Mudassir Abbas at devmudassir0705@gmail.com.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
