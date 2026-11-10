@@ -36,11 +36,7 @@ export default function Projects() {
         {/* The letters are cut out of a moving gradient texture (public/headline-texture.svg). */}
         {/* One wrapper owns the spacing for both versions of the headline, so swapping them never moves the page.
             (The margin must live here: MaskedHeading's own CSS sets margin: 0 and would override a Tailwind margin class.) */}
-<<<<<<< HEAD
         <div className="mb-[clamp(12px,3svh,36px))] [container-type:inline-size]">
-=======
-        <div className="mb-[clamp(24px,3.8svh,38px)] [container-type:inline-size]">
->>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
           {headingReady ? (
             <Suspense fallback={<StaticHeading />}>
               <MaskedHeading
@@ -50,13 +46,8 @@ export default function Projects() {
                 trigger="view"
                 align="left"
                 weight={800}
-<<<<<<< HEAD
                 textScale={0.050}
                 fillScale={1.6}
-=======
-                textScale={0.13}
-                fillScale={1.4}
->>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
                 parallax={30}
                 drift={22}
                 hoverZoom={0.06}

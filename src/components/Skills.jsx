@@ -9,11 +9,7 @@ import { bounceIn, cardIn, stagger, ease, viewportOnce } from '../utils/animatio
 
 export default function Skills() {
   return (
-<<<<<<< HEAD
   <Section id="skills" className="!pt-[calc(var(--nav-h)+clamp(4px,0.5svh,8px))] !pb-[clamp(4px,0.5svh,8px)]"> 
-=======
-    <Section id="skills">
->>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
       <Reveal className="mb-[clamp(10px,3.6svh,48px)]">
         <SectionHeading lead="Skills and" accent="tools" />
         <p className="text-white/80 max-w-[52ch] text-[clamp(0.95rem,0.35vw+0.85rem,1.1rem)] leading-[1.5]">Where I spend most of my time, and how confident I feel in each area.</p>
