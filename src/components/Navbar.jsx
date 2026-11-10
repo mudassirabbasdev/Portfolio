@@ -20,7 +20,10 @@ const socials = [
 
 export default function Navbar() {
   const [active, setActive] = useState('#top');
+<<<<<<< HEAD
   const [scrolled, setScrolled] = useState(false);
+=======
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
 
   // Mark the link of whichever section crosses the middle of the viewport.
   useEffect(() => {
@@ -33,6 +36,7 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+<<<<<<< HEAD
   // Solid black header background once the page is scrolled.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -52,10 +56,18 @@ export default function Navbar() {
 
         {/* Logo inside PillNav — far left */}
         <div className="pointer-events-auto absolute left-0 top-0 flex h-[52px] items-center">
+=======
+  return (
+    // The header ignores the pointer so the page underneath stays clickable; only the nav and the social buttons opt back in.
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-[clamp(10px,2svh,20px)]">
+      <div className="container-x relative">
+        <div className="flex justify-center">
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
           <PillNav
             logo={<img src="/logo-small.webp" alt="" width="128" height="70" draggable={false} />}
             logoAlt={`${profile.name} home`}
             logoHref="#top"
+<<<<<<< HEAD
             items={[]}
             activeHref={active}
             ariaLabel="Logo"
@@ -71,6 +83,8 @@ export default function Navbar() {
         {/* Nav links pill — centered */}
         <div className="flex justify-center">
           <PillNav
+=======
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
             items={items}
             activeHref={active}
             ariaLabel="Main"
@@ -88,7 +102,10 @@ export default function Navbar() {
           />
         </div>
 
+<<<<<<< HEAD
         {/* Social icons — far right */}
+=======
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
         <div className="pointer-events-auto absolute right-0 top-0 flex h-[52px] items-center gap-2 max-lg:hidden">
           {socials.map((item) => (
             <a
@@ -103,8 +120,15 @@ export default function Navbar() {
             </a>
           ))}
         </div>
+<<<<<<< HEAD
 
       </div>
     </header>
   );
 }
+=======
+      </div>
+    </header>
+  );
+}
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc

@@ -30,7 +30,11 @@ export const initials = profile.name
 // ticket. They are written from each project's summary, so edit them freely to match what you built.
 export const projects = [
   {
+<<<<<<< HEAD
     title: 'Verdora',
+=======
+    title: 'E-Commerce React',
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
     monogram: 'ER',
     summary: 'A React-based e-commerce storefront built with JavaScript.',
     kind: 'Storefront UI',
@@ -38,6 +42,7 @@ export const projects = [
     tags: ['JavaScript', 'React'],
     colors: ['#F2B35B', '#E07A5F'],
     gradient: 'linear-gradient(135deg, #F2B35B 0%, #E07A5F 100%)',
+<<<<<<< HEAD
     link: 'https://e-commerce-react-verdora.vercel.app/',
   },
   {
@@ -50,6 +55,9 @@ export const projects = [
     colors: ['#B8A4FF', '#5C4B99'],
     gradient: 'linear-gradient(135deg, #B8A4FF 0%, #5C4B99 100%)',
     link: 'https://spotify-clone-peach-iota.vercel.app/',
+=======
+    link: 'https://github.com/mudassirabbasdev/E-Commerce-React',
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
   },
   {
     title: 'MSW Consultancy',
@@ -63,6 +71,20 @@ export const projects = [
     link: 'https://github.com/mudassirabbasdev/MSW',
   },
   {
+<<<<<<< HEAD
+=======
+    title: 'Spotify Clone',
+    monogram: 'SC',
+    summary: "A responsive replica of Spotify's core UI and layout.",
+    kind: 'UI clone',
+    highlights: ['Responsive layout', "Replicates Spotify's core UI", 'HTML, CSS and JavaScript'],
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    colors: ['#B8A4FF', '#5C4B99'],
+    gradient: 'linear-gradient(135deg, #B8A4FF 0%, #5C4B99 100%)',
+    link: 'https://github.com/mudassirabbasdev',
+  },
+  {
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
     title: 'Interactive Web Forms',
     monogram: 'IW',
     summary: 'Fully validated registration forms with modular JavaScript.',
@@ -87,20 +109,36 @@ export const skills = [
   {
     name: 'Backend',
     items: [
+<<<<<<< HEAD
       { name: 'Node.js', level: 80 },
       { name: 'MongoDB', level: 84 },
+=======
+      { name: 'Laravel and PHP', level: 88 },
+      { name: 'Node.js', level: 80 },
+      { name: 'REST and GraphQL APIs', level: 84 },
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
     ],
   },
   {
     name: 'Delivery',
     items: [
+<<<<<<< HEAD
       { name: 'Git', level: 86 },
       { name: 'Vercel', level: 74 },
+=======
+      { name: 'Git and CI pipelines', level: 86 },
+      { name: 'Docker', level: 74 },
+      { name: 'Automated testing', level: 80 },
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
     ],
   },
 ];
 
+<<<<<<< HEAD
 export const tools = ['Vite', 'MongoDB', 'GitHub', 'JS', 'Tailwind CSS', 'Figma'];
+=======
+export const tools = ['Vite', 'PostgreSQL', 'MySQL', 'Redis', 'Shopify APIs', 'Figma', 'AWS', 'Linux'];
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
 
 export const stats = [
   { label: 'Years building for the web', value: 6, suffix: '+' },

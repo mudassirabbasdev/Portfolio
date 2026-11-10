@@ -12,7 +12,11 @@ export default function Section({ id, className = '', shade = '', background = n
   return (
     <section
       id={id}
+<<<<<<< HEAD
       className={`${height} relative flex flex-col overflow-hidden isolate pt-[calc(var(--nav-h)+clamp(16px,2svh,28px))] pb-[clamp(24px,4svh,48px)] ${className} ${shade}`.trim()}
+=======
+      className={`${height} relative flex flex-col overflow-hidden isolate pt-[calc(var(--nav-h)+clamp(28px,5svh,56px))] pb-[clamp(48px,7svh,96px)] ${className} ${shade}`.trim()}
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
     >
       {background && <div className="absolute inset-0 z-0 pointer-events-none">{background}</div>}
       <div className="container-x flex-1 min-h-0 flex flex-col">

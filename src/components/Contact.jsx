@@ -33,7 +33,11 @@ const controlClass =
 function Field({ label, multiline = false, className = '', ...props }) {
   const Control = multiline ? 'textarea' : 'input';
   return (
+<<<<<<< HEAD
     <label className={`flex flex-col gap-[clamp(3px,0.7svh,8px)] text-white text-[clamp(0.75rem,1.8svh,0.92rem)]  ${className}`}>
+=======
+    <label className={`flex flex-col gap-[clamp(3px,0.7svh,8px)] text-[clamp(0.75rem,1.8svh,0.92rem)] text-soft ${className}`}>
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
       <span>{label}</span>
       <Control {...props} className={`${controlClass} ${multiline ? 'flex-1 min-h-[clamp(72px,12svh,140px)] resize-none' : ''}`} />
     </label>
@@ -185,7 +189,11 @@ export default function Contact() {
             aria-busy={status === 'sending'}
           >
             <Field label="Name" name="name" value={form.name} onChange={update} placeholder="Your name" autoComplete="name" required maxLength={80} />
+<<<<<<< HEAD
             <Field label="Email" name="email" type="email" value={form.email} onChange={update} placeholder="you@gmail.com" autoComplete="email" required maxLength={120} />
+=======
+            <Field label="Email" name="email" type="email" value={form.email} onChange={update} placeholder="you@example.com" autoComplete="email" required maxLength={120} />
+>>>>>>> 7abc88f4a54f10c5e0877ae2c1b4e1bdd13c83fc
             <Field label="Message" name="message" value={form.message} onChange={update} placeholder="Tell me about your project..." className="flex-1 min-h-0" multiline required minLength={10} maxLength={2000} />
 
             {/* Honeypot: hidden from people and assistive tech, bots fill it in. */}
