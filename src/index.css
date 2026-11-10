@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Self-hosted fonts (Latin only). Manrope is a variable font; Caveat is subset to basic Latin for the hand-written note. */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-wght-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/caveat-500-basic.woff2') format('woff2');
+}
+
+/* Design tokens. Use them as classes, e.g. bg-ink, text-muted, font-hand. */
+@theme {
+  --color-ink: #0a0d14;
+  --color-muted: #8b919e;
+  --color-soft: #d1d5df;
+  --color-amber: #f2b35b;
+  --color-teal: #5fd4c4;
+  --color-lavender: #c4a6ff;
+  --color-line: rgb(255 255 255 / 0.12);
+
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', cursive;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --animate-pulse-dot: pulseDot 2.4s infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-orbit: orbit 30s linear infinite;
+  --animate-bar-shine: barShine 2.8s ease-in-out infinite;
+  --animate-float: float 4s ease-in-out infinite;
+}
+
+/* Shared page width: centred, 1120px max, gutter grows from 32px (phones) to 96px (laptops), above the section backgrounds. */
+@utility container-x {
+  width: min(1120px, calc(100% - clamp(32px, 7vw, 96px)));
+  margin-inline: auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* Full-viewport section. svh keeps it stable under mobile browser toolbars; vh is the fallback. */
+@utility section-screen {
+  min-height: 100vh;
+  @supports (height: 100svh) {
+    min-height: 100svh;
+  }
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(95, 212, 196, 0.55); }
+  70% { box-shadow: 0 0 0 10px rgba(95, 212, 196, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(95, 212, 196, 0); }
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes orbit { to { stroke-dashoffset: -400; } }
+@keyframes barShine { to { transform: translateX(100%); } }
+/* Gentle bobbing on the compositor (no JS). Per element: --float-y for the distance, animation-duration/delay for the pace. */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--float-y, -8px)); }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ink text-white font-sans text-[17px] leading-[1.65] antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Respect reduced-motion preferences for CSS animations as well as Framer Motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+

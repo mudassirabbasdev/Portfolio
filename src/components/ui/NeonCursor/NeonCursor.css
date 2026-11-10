@@ -1,0 +1,304 @@
+/* ------------------------------------------------------------------
+   NeonCursor: rounded crosshair brackets, centre dot, bloom, and a
+   canvas layer (fluid trail, particles, click ripples).
+   Everything is pointer-events: none, so clicks, links and scrolling
+   always reach the page underneath.
+------------------------------------------------------------------- */
+
+/* Hide the native pointer while the component is mounted on a mouse device (class set from JS). */
+html.neon-cursor-active,
+html.neon-cursor-active *,
+html.neon-cursor-active *::before,
+html.neon-cursor-active *::after {
+  cursor: none !important;
+}
+
+.neon-cursor {
+  --nc-primary: #a855f7;
+  --nc-soft: #c084fc;
+  --nc-light: #e9d5ff;
+  --nc-size: 34px;
+  --nc-w: var(--nc-size);
+  --nc-h: var(--nc-size);
+  --nc-corner: calc(var(--nc-size) * 0.32);
+
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.neon-cursor.is-ready {
+  opacity: 1;
+}
+
+/* Over a text field the brackets slim down into an I-beam style caret. */
+.neon-cursor.is-text {
+  --nc-w: 12px;
+  --nc-h: calc(var(--nc-size) * 0.95);
+  --nc-corner: 7px;
+}
+
+.neon-cursor__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Soft light bloom under the crosshair. */
+.neon-cursor__bloom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--nc-primary) 34%, transparent) 0%,
+    color-mix(in srgb, var(--nc-primary) 12%, transparent) 42%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.neon-cursor.is-link .neon-cursor__bloom {
+  width: 150px;
+  height: 150px;
+}
+
+.neon-cursor.is-text .neon-cursor__bloom {
+  opacity: 0.55;
+}
+
+/* Frame = eased position (set from JS). Box = size + press/hover scale (set from JS). */
+.neon-cursor__frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+.neon-cursor__box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--nc-w);
+  height: var(--nc-h);
+  margin: calc(var(--nc-h) / -2) 0 0 calc(var(--nc-w) / -2);
+  will-change: transform;
+  transition:
+    width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Ring variant (default): translucent glowing disc with a bright outline; the dot sits at its centre. ---- */
+.neon-cursor__ring {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: 1.5px solid var(--nc-soft);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--nc-primary) 30%, transparent) 0%,
+    color-mix(in srgb, var(--nc-primary) 10%, transparent) 70%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--nc-primary) 65%, transparent),
+    0 0 24px color-mix(in srgb, var(--nc-primary) 35%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--nc-primary) 40%, transparent);
+  animation: nc-breathe 3.2s ease-in-out infinite;
+  transition:
+    border-color 0.22s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    border-radius 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover: the ring expands (scale is set from JS), turns hollow and its light gets brighter. */
+.neon-cursor--ring.is-link .neon-cursor__ring {
+  border-color: var(--nc-light);
+  background: radial-gradient(
+    circle,
+    transparent 55%,
+    color-mix(in srgb, var(--nc-primary) 22%, transparent) 100%
+  );
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--nc-soft) 80%, transparent),
+    0 0 30px color-mix(in srgb, var(--nc-primary) 55%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--nc-primary) 55%, transparent);
+}
+
+/* Press: the ring fills with light. */
+.neon-cursor--ring.is-down .neon-cursor__ring {
+  border-color: var(--nc-light);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--nc-soft) 55%, transparent) 0%,
+    color-mix(in srgb, var(--nc-primary) 22%, transparent) 75%,
+    transparent 100%
+  );
+}
+
+/* Text field: the ring slims into a caret. */
+.neon-cursor--ring.is-text {
+  --nc-w: 4px;
+  --nc-h: calc(var(--nc-size) * 0.9);
+}
+.neon-cursor--ring.is-text .neon-cursor__ring {
+  border-radius: 4px;
+  border-width: 1px;
+  background: color-mix(in srgb, var(--nc-primary) 55%, transparent);
+}
+
+.neon-cursor--ring.is-link .neon-cursor__dot {
+  width: 3px;
+  height: 3px;
+}
+.neon-cursor--ring.is-down .neon-cursor__dot {
+  width: 5px;
+  height: 5px;
+}
+
+/* ---- Brackets variant ---- */
+/* drop-shadow follows the bracket shapes only, so the glow hugs the lines. */
+.neon-cursor__corners {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 0 3px var(--nc-primary))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--nc-primary) 70%, transparent));
+  animation: nc-breathe 3.2s ease-in-out infinite;
+  transition: filter 0.25s ease;
+}
+
+.neon-cursor.is-link .neon-cursor__corners,
+.neon-cursor.is-down .neon-cursor__corners {
+  filter: drop-shadow(0 0 4px var(--nc-soft))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--nc-primary) 90%, transparent));
+}
+
+.neon-cursor__corner {
+  position: absolute;
+  width: var(--nc-corner);
+  height: var(--nc-corner);
+  border: 0 solid var(--nc-soft);
+  transition:
+    width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease;
+}
+
+.neon-cursor.is-link .neon-cursor__corner,
+.neon-cursor.is-down .neon-cursor__corner {
+  border-color: var(--nc-light);
+}
+
+.neon-cursor__corner--tl {
+  top: 0;
+  left: 0;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-top-left-radius: 7px;
+}
+.neon-cursor__corner--tr {
+  top: 0;
+  right: 0;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-top-right-radius: 7px;
+}
+.neon-cursor__corner--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-bottom-left-radius: 7px;
+}
+.neon-cursor__corner--br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-bottom-right-radius: 7px;
+}
+
+/* Centre dot. It tracks the pointer with zero easing, so the exact click point is always precise. */
+.neon-cursor__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--nc-light);
+  box-shadow:
+    0 0 6px 1px var(--nc-light),
+    0 0 16px 3px var(--nc-primary);
+  will-change: transform;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.neon-cursor.is-link .neon-cursor__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.neon-cursor.is-down .neon-cursor__dot {
+  width: 3px;
+  height: 3px;
+}
+
+.neon-cursor.is-text .neon-cursor__dot {
+  opacity: 0;
+}
+
+@keyframes nc-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-cursor__corners,
+  .neon-cursor__ring {
+    animation: none;
+  }
+  .neon-cursor__box,
+  .neon-cursor__ring,
+  .neon-cursor__corner,
+  .neon-cursor__bloom {
+    transition: none;
+  }
+}
+
+/* Safety net: never show on touch-first devices (the component also skips mounting there). */
+@media (hover: none), (pointer: coarse) {
+  .neon-cursor {
+    display: none;
+  }
+}

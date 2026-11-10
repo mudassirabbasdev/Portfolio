@@ -1,0 +1,10 @@
+/* Navbar height, shared by the navbar and every section's top padding. */
+:root {
+  --nav-h: 80px;
+}
+@supports (height: 1svh) {
+  :root {
+    --nav-h: clamp(64px, 8svh, 84px);
+  }
+}
+
