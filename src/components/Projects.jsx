@@ -5,6 +5,7 @@ import { gradientText } from './ui/SectionHeading';
 import useAfterIdle from '../utils/useAfterIdle';
 import ProjectTicket from './ProjectTicket';
 import { projects } from '../data/portfolio';
+import { GrProjects } from 'react-icons/gr';
 
 // The animated headline pulls in GSAP, so it loads as its own chunk once the page is idle. Until then (and for anyone
 // without JavaScript) a plain heading of the same size and gradient sits in its place, so nothing jumps when it swaps in.
@@ -29,7 +30,7 @@ export default function Projects() {
     <Section id="projects">
       <Reveal className="mb-[clamp(24px,5svh,56px)] max-w-[720px]">
         <span className="mb-[clamp(8px,2svh,20px)] inline-flex items-center gap-2.5 rounded-full border border-lavender/35 bg-lavender/10 px-5 py-[clamp(5px,1.2svh,10px)] text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-white">
-          <SparkIcon />
+          <GrProjects />
           Selected work
         </span>
 

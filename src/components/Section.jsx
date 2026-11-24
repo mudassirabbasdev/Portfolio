@@ -7,12 +7,14 @@ import './section.css';
 // Pass `screen={false}` when a parent already sets the section height.
 // `shade` adds a plain background (colour/gradient classes) for sections without an animated one.
 export default function Section({ id, className = '', shade = '', background = null, screen = true, children }) {
-  const height = screen ? 'section-screen' : 'flex-1 min-h-0';
+  // Gap between consecutive sections = 4px bottom + 4px top = 8px. scroll-mt keeps anchor jumps clear of the navbar.
+  const height = screen ? 'scroll-mt-[var(--nav-h)]' : 'flex-1 min-h-0';
+  const top = screen ? 'pt-4' : 'pt-[calc(var(--nav-h)+clamp(16px,2svh,28px))]';
 
   return (
     <section
       id={id}
-      className={`${height} relative flex flex-col overflow-hidden isolate pt-[calc(var(--nav-h)+clamp(16px,2svh,28px))] pb-[clamp(24px,4svh,48px)] ${className} ${shade}`.trim()}
+      className={`${height} relative flex flex-col overflow-hidden isolate ${top} pb-4 ${className} ${shade}`.trim()}
     >
       {background && <div className="absolute inset-0 z-0 pointer-events-none">{background}</div>}
       <div className="container-x flex-1 min-h-0 flex flex-col">
